@@ -1,0 +1,32 @@
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "shop-connector",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "database.dbname": "postgres",
+        "database.hostname": "postgres",
+        "database.password": "postgres",
+        "database.port": "5432",
+        "database.server.name": "postgres",
+        "database.user": "postgres",
+        "name": "shop-connector",
+        "plugin.name": "pgoutput",
+        "table.include.list": "public.users",
+        "tasks.max": "1",
+        "topic.creation.default.cleanup.policy": "delete",
+        "topic.creation.default.partitions": "1",
+        "topic.creation.default.replication.factor": "1",
+        "topic.creation.default.retention.ms": "604800000",
+        "topic.creation.enable": "true",
+        "topic.prefix": "shop",
+        "database.history.skip.unparseable.ddl": "true",
+        "value.converter": "io.confluent.connect.avro.AvroConverter",
+        "key.converter": "io.confluent.connect.avro.AvroConverter",
+        "value.converter.schema.registry.url": "http://schema-registry:8081",
+        "key.converter.schema.registry.url": "http://schema-registry:8081",
+        "transforms": "unwrap",
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState"
+
+    }
+}'
